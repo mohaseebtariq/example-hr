@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd .. && pnpm build-storybook",
+  "outputDirectory": "../storybook-static",
+  "framework": null
+}
