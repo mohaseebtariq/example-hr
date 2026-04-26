@@ -42,6 +42,11 @@ pnpm dev
 
 The root (`/`) redirects to the employee view automatically. No environment variables are required — the mock HCM runs as Next.js route handlers in the same process.
 
+```bash
+# Optional: copy to enable dev scenario tools
+cp .env.local.example .env.local
+```
+
 ---
 
 ## Storybook
