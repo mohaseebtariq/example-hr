@@ -1,0 +1,18 @@
+# Requirements are the single source of truth
+
+## Non-negotiable
+
+- `TRD.md` is the **single source of truth** for scope, goals, and edge cases.
+- Do **not** add UI, features, routes, copy, or workflows that are not specified by `TRD.md`.
+
+## Required coverage (must remain true)
+
+- Employee balances + request submission flow
+- Manager approvals with **fresh** balance at decision time
+- Defensive HCM behaviors:
+  - out-of-band balance changes
+  - slow/timeout
+  - conflict responses
+  - **silent success** (HTTP 200 without commit) detected by canonical re-read + rollback
+- Proof of statefulness via Storybook stories and automated tests (unit/hook/integration)
+

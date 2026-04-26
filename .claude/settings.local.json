@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__mcp-registry__search_mcp_registry",
+      "mcp__mcp-registry__list_connectors",
+      "Bash(npx create-next-app@latest examplehr-timeoff --typescript --tailwind --app --src-dir --import-alias \"@/*\" --no-git --eslint --turbopack)",
+      "Bash(pnpm test:unit)",
+      "Bash(pnpm exec:*)",
+      "Bash(pnpm add:*)",
+      "Bash(npx vitest:*)"
+    ]
+  }
+}

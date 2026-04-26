@@ -1,0 +1,37 @@
+---
+title: Scope exceptions (intentional deviations)
+---
+
+## Why this file exists
+
+This repo follows **`TRD.md`** as the default source of truth.
+However, there are a small number of **intentional “real-world hardening” behaviors** that were
+implemented even though they are not explicitly required in the TRD.
+
+These are treated as **explicit, documented exceptions** so reviewers can see:
+
+- what changed beyond the spec,
+- why it was done,
+- and that we are **not expanding scope broadly**.
+
+## Exception list (allowed deviations)
+
+### 1) Duplicate / overlapping request — same leave type
+
+- **Behavior**: Reject a time-off submission when it overlaps an existing request for the same employee on the same date range.
+- **Where**: `src/lib/mock-hcm/logic.ts` (`submitRequest`)
+- **Why**: Prevents submitting the exact same leave twice and avoids confusing “two requests for the same days” states.
+- **User impact**: Clear 409 conflict error and rollback messaging on the employee side.
+
+### 2) Overlapping request — different leave types on same dates (global overlap)
+
+- **Behavior**: Reject a time-off submission when it overlaps an existing request for the same employee even if the leave type differs (e.g. Sick + Personal/Casual on the same date).
+- **Where**: `src/lib/mock-hcm/logic.ts` (`submitRequest`)
+- **Why**: Many real HCMs enforce a “no double-booking” absence rule at the day level unless partial-day support exists.
+- **User impact**: Clear 409 conflict error and rollback messaging on the employee side.
+
+## Guardrails
+
+- No other feature or workflow should be added unless it is explicitly required by `TRD.md`.
+- If a new real-world behavior feels necessary, it must be added to this file first with a concrete justification and pointers to the code/tests.
+

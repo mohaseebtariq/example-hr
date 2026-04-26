@@ -1,0 +1,2 @@
+export { ManagerShell } from './ManagerShell';
+

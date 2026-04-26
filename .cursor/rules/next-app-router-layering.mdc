@@ -1,0 +1,24 @@
+---
+description: Next.js App Router layering (pages route only; shells compose)
+globs: src/app/**/*.tsx
+alwaysApply: false
+---
+
+# App Router Layering Rules
+
+- `src/app/**/page.tsx` should be **routing only**:
+  - Read `params`, render a shell, no business logic.
+  - Avoid direct HCM calls and heavy state management in pages.
+
+- Prefer this shape:
+
+```tsx
+// ✅ Good
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return <SomeShell id={id} />;
+}
+```
+
+- Place orchestration in feature shells/components under `src/features/**`.
+

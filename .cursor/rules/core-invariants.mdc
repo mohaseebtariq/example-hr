@@ -1,0 +1,28 @@
+---
+description: Non-negotiable invariants (HCM distrust, cache boundaries, query keys)
+alwaysApply: true
+---
+
+# ExampleHR Time-Off — Core Invariants
+
+## Never trust HCM success
+
+- A `200` from HCM on a write means **acknowledged**, not committed.
+- After any successful write that should affect a balance, do a **canonical per-cell re-read**:
+  - `queryClient.fetchQuery({ queryKey: queryKeys.balance(eId, lId), staleTime: 0 })`
+  - If the balance did not move as expected, **rollback** and notify.
+
+## State ownership boundary
+
+- **Server state** (`Balance`, `TimeOffRequest`) lives only in **TanStack Query**.
+- **Zustand** is UI-only (modal state, toast queue, in-flight mutation set).
+- Exception: `RequestModal` may store minimal UI context (`locationId`) needed to render the form.
+
+## Query keys are centralized
+
+- Never inline query keys. Always use `src/lib/query-keys.ts` (`queryKeys.*`).
+
+## Background refresh guard
+
+- When `${employeeId}:${locationId}` is in `inFlightMutations`, background refresh must not overwrite optimistic state.
+

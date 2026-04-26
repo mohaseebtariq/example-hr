@@ -1,0 +1,25 @@
+---
+description: Storybook/MSW and test discipline (deterministic stories + interaction plays)
+globs: "**/*.{stories.tsx,test.ts,test.tsx}"
+alwaysApply: false
+---
+
+# Storybook + Tests Discipline
+
+## Storybook
+
+- Stories must be **deterministic**:
+  - Use MSW handlers for `/api/mock/hcm/*` (no real network).
+  - Reset MSW store between stories (see `.storybook/preview.tsx`).
+- Interactive stories must include a `play()` that asserts a user-visible outcome.
+
+## Storybook interaction runner
+
+- If browser runner fails due to missing browsers, install once:
+  - `npx playwright install`
+
+## Integration tests
+
+- Prefer “real wiring” tests by stubbing `fetch` to shared mock logic (no Next runtime).
+- Cover regressions that would violate core invariants (silent success rollback, in-flight guard, manager conflict).
+

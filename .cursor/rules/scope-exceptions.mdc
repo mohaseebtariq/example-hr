@@ -1,0 +1,14 @@
+# Scope exceptions only (allowed deviations)
+
+Default rule: **follow `TRD.md` exactly**. Do not add features, validations, UI affordances, or workflows beyond the documented requirements.
+
+## Approved exceptions
+
+Only the exceptions listed in `SCOPE_EXCEPTIONS.mdx` are allowed to deviate from the requirements. If a change is not listed there, treat it as out of scope.
+
+## Process for adding an exception
+
+- Add the exception to `SCOPE_EXCEPTIONS.mdx` first (what/where/why/user impact).
+- Add a focused test proving the behavior.
+- Keep the change minimal and avoid cascading UI/UX scope.
+

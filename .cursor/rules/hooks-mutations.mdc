@@ -1,0 +1,25 @@
+---
+description: Hook and mutation lifecycle rules (optimistic + re-read + rollback)
+globs: src/features/**/hooks/**/*.ts
+alwaysApply: false
+---
+
+# Hooks & Mutations Rules
+
+## HCM calls
+
+- All HCM HTTP calls must go through `src/lib/hcm-client.ts` (never raw `fetch` in hooks/components).
+
+## Mutation lifecycle (required phases)
+
+- `onMutate`: snapshot + optimistic apply + register in-flight key.
+- `mutationFn`: perform write.
+- `onSuccess`: canonical re-read and verify; rollback if not confirmed.
+- `onError`: rollback snapshot + toast.
+- `onSettled`: remove in-flight key; invalidate affected queries.
+
+## Query usage
+
+- Use `queryKeys.*` factories only.
+- Avoid multiple `useQuery` calls in the same feature component; split into child components when needed.
+
