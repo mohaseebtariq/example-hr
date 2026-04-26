@@ -36,12 +36,12 @@ export const SufficientBalance: Story = {
       return { request };
     },
   ],
-  render: (_args, { loaded }) =>
-    // @ts-expect-error loaded is typed as unknown
-    loaded.request
-      ? // @ts-expect-error loaded is typed as unknown
-        ApprovalCard({ managerId: 'm-100', request: loaded.request as TimeOffRequest })
-      : null,
+  render: (_args, { loaded }) => {
+    const { request } = loaded as { request?: TimeOffRequest };
+    return request
+      ? ApprovalCard({ managerId: 'm-100', request })
+      : <></>;
+  },
 };
 
 // Inline args-based approach: direct props, MSW resolves the live balance
