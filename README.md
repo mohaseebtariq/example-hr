@@ -19,6 +19,15 @@ For the full architectural rationale, ADR-style tool choices, and edge case cove
 
 ---
 
+## Live demos
+
+| | URL |
+|---|---|
+| **App** | https://example-hr.vercel.app/ |
+| **Storybook** | https://example-hr-storybook.vercel.app/ |
+
+---
+
 ## Quick start
 
 ```bash
